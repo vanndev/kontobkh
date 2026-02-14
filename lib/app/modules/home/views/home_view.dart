@@ -152,8 +152,10 @@ class HomeView extends GetView<HomeController> {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                    child: Image.network(
-                      product.images?.isNotEmpty ?? false ? product.images?.first ?? "" : "",
+                    child: Image(
+                      image: AssetImage(
+                        product.images?.isNotEmpty ?? false ? product.images?.first ?? "" : "",
+                      ),
                       width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) =>

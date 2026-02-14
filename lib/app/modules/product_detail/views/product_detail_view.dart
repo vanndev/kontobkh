@@ -30,8 +30,12 @@ class ProductDetailView extends GetView<ProductDetailController> {
             // IMAGE
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                (product.images != null && product.images!.isNotEmpty) ? product.images!.first : "",
+              child: Image(
+                image: AssetImage(
+                  (product.images != null && product.images!.isNotEmpty)
+                      ? product.images!.first
+                      : "",
+                ),
                 width: double.infinity,
                 height: isMobile
                     ? 500
