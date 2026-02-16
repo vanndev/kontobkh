@@ -152,14 +152,14 @@ class HomeView extends GetView<HomeController> {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                    child: Image(
-                      image: AssetImage(
-                        product.images?.isNotEmpty ?? false ? product.images?.first ?? "" : "",
-                      ),
+                    child: Image.network(
+                      product.images?.isNotEmpty == true
+                          ? "https://vanndev.github.io/kontobkh/${product.images!.first.replaceFirst('assets/', 'assets/')}"
+                          : "",
                       width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) =>
-                          const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
+                      const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
                     ),
                   ),
 

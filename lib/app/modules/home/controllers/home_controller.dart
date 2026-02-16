@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../../../core/models/product_model.dart';
 
@@ -68,7 +67,7 @@ class HomeController extends GetxController {
     final List<Map<String, dynamic>> mockData = [];
 
     for (int i = 0; i < availableImages.length; i++) {
-      final image = "assets/${availableImages[i]}";
+      final image = availableImages[i];
       final isM = image.contains("_M_");
       final price = isM ? 4.0 : 5.0;
       final inStock = true;
