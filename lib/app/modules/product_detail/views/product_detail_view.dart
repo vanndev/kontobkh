@@ -30,12 +30,10 @@ class ProductDetailView extends GetView<ProductDetailController> {
             // IMAGE
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: Image(
-                image: AssetImage(
-                  (product.images != null && product.images!.isNotEmpty)
-                      ? product.images!.first
-                      : "",
-                ),
+              child: (product.images != null && product.images!.isNotEmpty)
+                  ? (product.images!.first.startsWith('http')
+                  ? Image.network(
+                product.images!.first,
                 width: double.infinity,
                 height: isMobile
                     ? 500
@@ -44,9 +42,23 @@ class ProductDetailView extends GetView<ProductDetailController> {
                     : 500,
                 fit: isMobile ? BoxFit.cover : BoxFit.contain,
                 errorBuilder: (_, __, ___) =>
-                    const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
-              ),
+                const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
+              )
+                  : Image.asset(
+                product.images!.first,
+                width: double.infinity,
+                height: isMobile
+                    ? 500
+                    : isTablet
+                    ? 400
+                    : 500,
+                fit: isMobile ? BoxFit.cover : BoxFit.contain,
+                errorBuilder: (_, __, ___) =>
+                const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
+              ))
+                  : const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
             ),
+
             const SizedBox(height: 16),
 
             // TITLE

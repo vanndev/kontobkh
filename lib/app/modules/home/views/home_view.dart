@@ -152,13 +152,23 @@ class HomeView extends GetView<HomeController> {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                    child: Image.asset(
-                      product.images?.isNotEmpty == true ? product.images!.first : "",
+                    child: product.images?.isNotEmpty == true
+                        ? (product.images!.first.startsWith('http')
+                        ? Image.network(
+                      product.images!.first,
                       width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) =>
                       const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
-                    ),
+                    )
+                        : Image.asset(
+                      product.images!.first,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) =>
+                      const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
+                    ))
+                        : const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
                   ),
 
                   // Discount Badge
