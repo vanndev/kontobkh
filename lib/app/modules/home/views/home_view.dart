@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kontob_flutter/app/modules/home/controllers/home_controller.dart';
@@ -150,25 +151,16 @@ class HomeView extends GetView<HomeController> {
             Expanded(
               child: Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                    child: product.images?.isNotEmpty == true
-                        ? (product.images!.first.startsWith('http')
-                        ? Image.network(
-                      product.images!.first,
+                   ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: CachedNetworkImage(
+                      imageUrl: product.images!.first,
                       width: double.infinity,
                       fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
+                      placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                      errorWidget: (_, __, ___) =>
                       const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
-                    )
-                        : Image.asset(
-                      product.images!.first,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
-                      const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
-                    ))
-                        : const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
+                    ),
                   ),
 
                   // Discount Badge

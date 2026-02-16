@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kontob_flutter/app/modules/product_detail/controllers/product_detail_controller.dart';
@@ -30,10 +31,8 @@ class ProductDetailView extends GetView<ProductDetailController> {
             // IMAGE
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: (product.images != null && product.images!.isNotEmpty)
-                  ? (product.images!.first.startsWith('http')
-                  ? Image.network(
-                product.images!.first,
+              child: CachedNetworkImage(
+                imageUrl: product.images!.first,
                 width: double.infinity,
                 height: isMobile
                     ? 500
@@ -41,22 +40,10 @@ class ProductDetailView extends GetView<ProductDetailController> {
                     ? 400
                     : 500,
                 fit: isMobile ? BoxFit.cover : BoxFit.contain,
-                errorBuilder: (_, __, ___) =>
-                const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
-              )
-                  : Image.asset(
-                product.images!.first,
-                width: double.infinity,
-                height: isMobile
-                    ? 500
-                    : isTablet
-                    ? 400
-                    : 500,
-                fit: isMobile ? BoxFit.cover : BoxFit.contain,
-                errorBuilder: (_, __, ___) =>
-                const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
-              ))
-                  : const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
+                placeholder: (_, __) => const Center(child: CircularProgressIndicator()),
+                errorWidget: (_, __, ___) =>
+                    const Center(child: Icon(Icons.inventory_2_outlined, size: 40)),
+              ),
             ),
 
             const SizedBox(height: 16),
